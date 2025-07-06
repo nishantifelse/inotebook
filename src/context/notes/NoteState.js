@@ -33,7 +33,7 @@ const addNote = async (title, description, tag)=>{
   });
 
   const dataJson = response.json()
-
+console.log(dataJson)
   //todo api call
   console.log('adding a new notes')
   const note =   {
@@ -47,7 +47,7 @@ const addNote = async (title, description, tag)=>{
   }
   setNotes(notes.concat(note))
 } else{
-  
+
 }
 }
 //Delete a note
@@ -69,23 +69,28 @@ setNotes(newNotes)
 // Edit a note
 
 const editNote = async (id, title, description, tag)=>{
-  const response = await fetch(`http://localhost:8000/api/notes/updatenote/${id}`, {
+  const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'auth-token' : 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjg2MTc1NDg2MmQ1ZTVjNWJkYTc5NGE1In0sImlhdCI6MTc1MTIxNzQ5Nn0.Ep1PMxbVkXELcO1Eqf9x5D7ntZAmnIHiVnRFg50e8PI'
     },
-    body: JSON.stringify(title, description, tag)
+    body: JSON.stringify({title, description, tag})
   });
-  const dataJson = response.json()
-  for (let i= 0; i<notes.length; i++){
+  const dataJson = await response.json()
+  console.log(dataJson)
+
+  let newNotes = JSON.parse(JSON.stringify(notes))
+  for (let i= 0; i<newNotes.length; i++){
     const element = notes[i]
     if(element._id === id){
-      element.title = title;
-      element.description = description;
-      element.tag = tag;
+      newNotes[i].title = title;
+      newNotes[i].description = description;
+      newNotes[i].tag = tag;
+      break;
     }
 }
+setNotes(newNotes);
 }
   return (
   <noteContext.Provider value={{notes, setNotes, addNote, deleteNote, editNote, getNotes}}>

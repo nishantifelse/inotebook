@@ -1,23 +1,24 @@
-import React, {useContext, useState} from 'react';
+import React,{ useContext} from "react";
 import noteContext from "../context/notes/noteContext";
 
-const AddNote = () => {
-  const context = useContext(noteContext);
-  const {addNote} = context;
+function EditMode(props) {
+  const {setEditModeOff, note, setNote} = props;
+    const context = useContext(noteContext);
+  const {editNote} = context;
 
-const [note, setNote] = useState({title: "", description: "", tag: "default"});
   const handleClick = (e)=>{
-    e.preventDefault()
-    addNote(note.title, note.description, note.tag);
+    console.log('updating note', note)
+    editNote(note.id, note.etitle, note.edescription, note.etag)
   }
 
   const onChange = (e)=>{
     setNote({...note, [e.target.name]: e.target.value})
   }
+  
   return (
     <div>
       <div className="container my-4">
-        <h1>Add a Note</h1>
+        <h1>Edit Note</h1>
         <form className="my-3">
           <div className="mb-3">
             <label htmlFor="title" className="form-label">
@@ -26,10 +27,11 @@ const [note, setNote] = useState({title: "", description: "", tag: "default"});
             <input
               type="text"
               className="form-control"
-              id="title"
-              name='title'
+              id="etitle"
+              name="etitle"
               aria-describedby="emailHelp"
               onChange={onChange}
+              value={note.etitle}
             />
           </div>
           <div className="mb-3">
@@ -39,9 +41,10 @@ const [note, setNote] = useState({title: "", description: "", tag: "default"});
             <input
               type="text"
               className="form-control"
-              id="description"
-              name='description'
+              id="edescription"
+              name="edescription"
               onChange={onChange}
+              value={note.edescription}
             />
           </div>
           <div className="mb-3">
@@ -51,20 +54,27 @@ const [note, setNote] = useState({title: "", description: "", tag: "default"});
             <input
               type="text"
               className="form-control"
-              id="tag"
-              name='tag'
+              id="etag"
+              name="etag"
               onChange={onChange}
+              value={note.etag}
             />
           </div>
-          <div className="mb-3 form-check">
-          </div>
-          <button type="submit" className="btn btn-primary" onClick={handleClick}>
-            Add note
+          <div className="mb-3 form-check"></div>
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={()=>{
+              handleClick()
+              setEditModeOff()
+            }}
+          >
+            Update note
           </button>
         </form>
       </div>
     </div>
-  )
+  );
 }
 
-export default AddNote
+export default EditMode;

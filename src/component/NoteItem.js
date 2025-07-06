@@ -3,9 +3,9 @@ import noteContext from '../context/notes/noteContext';
 
 function NoteItem(props) {
   const context = useContext(noteContext);
-  const {deleteNote, editNote} = context;
+  const {deleteNote} = context;
 
-  const { note } = props;
+  const { note, setEditModeOn} = props;
   return (
     <div className="col-md-3 my-2">
       <div className="card px-3 py-3">
@@ -15,7 +15,7 @@ function NoteItem(props) {
           <i className="fa-solid fa-trash mx-2" onClick={()=>{
             deleteNote(note._id)
           }}></i>
-          <i className="fa-regular fa-keyboard mx-2" onClick={editNote}></i>
+          <i className="fa-regular fa-keyboard mx-2" onClick={()=>{setEditModeOn(note)}}></i>
         </div>
       </div>
     </div>
