@@ -9,6 +9,7 @@ function EditMode(props) {
   const handleClick = (e)=>{
     console.log('updating note', note)
     editNote(note.id, note.etitle, note.edescription, note.etag)
+    setNote({id: '', etitle: '', edescription: '', etag: ''})
   }
 
   const onChange = (e)=>{
@@ -62,6 +63,7 @@ function EditMode(props) {
           </div>
           <div className="mb-3 form-check"></div>
           <button
+          disabled={note.etitle.length<5 || note.edescription.length<10}
             type="submit"
             className="btn btn-primary"
             onClick={()=>{

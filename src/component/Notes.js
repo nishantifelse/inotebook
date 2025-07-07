@@ -34,6 +34,7 @@ function Notes() {
       
       <div className="row my-3">
         <h2>Your Notes</h2>
+        <div className="conatainer">{notes.length === 0 && "No Notes to display"}</div>
         {notes.map((note) => {
           return <NoteItem key={note._id} setEditModeOn={handleEditModeOn} note={note} />;
         })}

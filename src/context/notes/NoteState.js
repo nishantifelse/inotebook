@@ -32,20 +32,11 @@ const addNote = async (title, description, tag)=>{
     body: JSON.stringify({title, description, tag})
   });
 
-  const dataJson = response.json()
-console.log(dataJson)
+  const dataJsonNote = await response.json()
+console.log(dataJsonNote)
   //todo api call
   console.log('adding a new notes')
-  const note =   {
-    "_id": "68674310d2ca2cff86060efcef",
-    "user": "6861754862d5e5c5bda794a5",
-    "title": title,
-    "description": description,
-    "tag": tag,
-    "date": "2025-07-04T02:17:54.122Z",
-    "__v": 0
-  }
-  setNotes(notes.concat(note))
+  setNotes(notes.concat(dataJsonNote))
 } else{
 
 }
