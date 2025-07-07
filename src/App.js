@@ -7,10 +7,11 @@ import NoteState from "./context/notes/NoteState";
 import Alert from "./component/Alert";
 import Login from "./component/Login";
 import Signup from "./component/Signup";
+import AuthState from "./context/auth/authState";
 
 function App() {
   return (
-    <>
+    <AuthState>
       <NoteState>
         <Router>
           
@@ -26,7 +27,7 @@ function App() {
           </div>
         </Router>
       </NoteState>
-    </>
+    </AuthState>
   );
 }
 

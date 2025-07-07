@@ -1,7 +1,7 @@
 import React from 'react'
 import authContext from './authContext'
 
-const authState = () => {
+const authState = (props) => {
   const host = 'http://localhost:8000'
   const login = async (email, password)=>{
     const response = fetch(`${host}/api/auth/login`, {
@@ -29,7 +29,7 @@ const authState = () => {
 
   return (
     
-    <authContext.Provider value={{login}}>
+    <authContext.Provider value={{login, signUp}}>
       {props.children}
     </authContext.Provider>
   )
